@@ -1,34 +1,7 @@
 {
-  "name": "mazer",
+  "name": "mazer-rails",
   "version": "2.0.3",
-  "description": "Free and Open-source Bootstrap 5 Admin Dashboard Template and Landing Page",
-  "scripts": {
-    "dev": "mix",
-    "watch": "mix watch",
-    "watch-poll": "mix watch -- --watch-options-poll=1000",
-    "hot": "mix watch --hot",
-    "production": "mix --production && npm run prettify",
-    "rtl": "rtlcss -d \"dist/assets/css\" -e \".rtl.css\" && find . -type f -name '*.rtl.rtl.css' -delete",
-    "prod-rtl": "mix --production && rtl",
-    "prettify": "prettier --write 'dist/*.html'",
-    "zip": "bestzip dist.zip dist/*"
-  },
-  "author": "zuramai",
-  "license": "MIT",
-  "keywords": [
-    "bootstrap",
-    "template",
-    "dashboard",
-    "scss",
-    "admin-dashboard",
-    "hacktoberfest",
-    "free-template",
-    "bootstrap5",
-    "bootstrap5-template"
-  ],
-  "sponsor": {
-    "url": "https://github.com/sponsors/zuramai"
-  },
+  "description": "Gem to add Mazer to Ruby on Rails",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^32.0.0",
     "@fontsource/nunito": "^4.5.11",
@@ -82,21 +55,5 @@
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0"
-  },
-  "release-it": {
-    "hooks": {
-      "before:init": [
-        "npm run prodzip"
-      ]
-    },
-    "npm": {
-      "publish": false
-    },
-    "github": {
-      "release": true,
-      "assets": [
-        "dist.zip"
-      ]
-    }
   }
 }
