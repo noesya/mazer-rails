@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/mazer/rails/version"
+require_relative "lib/mazer_rails/version"
 
 Gem::Specification.new do |spec|
   spec.name = "mazer-rails"
-  spec.version = Mazer::Rails::VERSION
+  spec.version = MazerRails::VERSION
   spec.authors = ["Arnaud Levy"]
   spec.email = ["arnaud.levy@noesya.coop"]
 
@@ -28,9 +28,9 @@ Gem::Specification.new do |spec|
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-
-  # Uncomment to register a new dependency of your gem
-  # spec.add_dependency "example-gem", "~> 1.0"
+ 
+  spec.add_runtime_dependency 'sassc-rails', '>= 2.0.0'
+  spec.add_runtime_dependency 'autoprefixer-rails', '>= 9.1.0'
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
