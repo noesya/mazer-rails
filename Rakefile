@@ -28,19 +28,17 @@ end
 def clean_existing_assets
   puts 'Cleaning old JS and CSS files...'
 
-  # `rm -rf vendor/assets/extensions`
   `rm -rf vendor/assets/fonts`
   `rm -rf vendor/assets/javascripts`
   `rm -rf vendor/assets/stylesheets`
 
-  # FileUtils.mkdir_p('vendor/assets/extensions')
   FileUtils.mkdir_p('vendor/assets/fonts')
   FileUtils.mkdir_p('vendor/assets/javascripts/mazer')
   FileUtils.mkdir_p('vendor/assets/stylesheets/mazer')
 end
 
 def fix_fonts
-  puts 'Fixing font URLs in CSS files...'
+  puts 'Fixing font URLs in SCSS files...'
 
   css_paths = [
     'vendor/assets/stylesheets/mazer/app.scss',
@@ -56,19 +54,12 @@ def fix_fonts
   end
 end
 
-def clean_unused_assets
-  # FileUtils.rm_rf('vendor/assets/extensions/chart.js/docs')
-  # FileUtils.rm_rf('vendor/assets/extensions/rater-js/example')
-  # FileUtils.rm_rf('vendor/assets/extensions/toastify-js/example')
-end
-
 def copy_assets
   clean_existing_assets
 
   puts 'Copying new JS and CSS files...'
   base_input_path = "tmp/dist/assets"
   base_output_path = "vendor/assets"
-  `cp -R #{base_input_path}/extensions/* #{base_output_path}/extensions`
   `cp -R #{base_input_path}/fonts/* #{base_output_path}/fonts`
   `cp -R #{base_input_path}/js/*.js #{base_output_path}/javascripts/mazer`
   `cp -R #{base_input_path}/css/main/* #{base_output_path}/stylesheets/mazer`
@@ -78,7 +69,6 @@ def copy_assets
   `mv #{base_output_path}/stylesheets/mazer/app-dark.css #{base_output_path}/stylesheets/mazer/app-dark.scss`
 
   fix_fonts
-  clean_unused_assets
 end
 
 desc "Update assets"
