@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require_relative "lib/mazer_rails/version"
 
 Gem::Specification.new do |spec|
@@ -28,8 +30,9 @@ Gem::Specification.new do |spec|
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
- 
-  spec.add_runtime_dependency "sassc-rails", ">= 2.0.0"
+
+  spec.add_runtime_dependency "rails"
+  spec.add_runtime_dependency "dartsass-sprockets"
   spec.add_runtime_dependency "autoprefixer-rails", ">= 9.1.0"
 
   # For more information and examples about making a new gem, check out our
