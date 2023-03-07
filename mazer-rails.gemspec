@@ -7,8 +7,8 @@ require_relative "lib/mazer_rails/version"
 Gem::Specification.new do |spec|
   spec.name = "mazer-rails"
   spec.version = MazerRails::VERSION
-  spec.authors = ["Arnaud Levy"]
-  spec.email = ["arnaud.levy@noesya.coop"]
+  spec.authors = ["Arnaud Levy", "Sébastien Gaya"]
+  spec.email = ["arnaud.levy@noesya.coop", "sebastien.gaya@noesya.coop"]
 
   spec.summary = "Integrate Mazer in Ruby on Rails"
   spec.description = "Integrate the Mazer admin theme in a Ruby on Rails application."
