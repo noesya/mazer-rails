@@ -18,11 +18,11 @@ def download_release_file(template_url)
     end
   end
 
-  puts 'No zip to process. Exiting...' and exit unless File.exists? 'tmp/template.zip'
+  puts 'No zip to process. Exiting...' and exit unless File.exist? 'tmp/template.zip'
 
   puts 'Unzipping "tmp/template.zip"...'
   FileUtils.rm_rf('tmp/dist')
-  `unzip -d tmp/dist tmp/template.zip`
+  `unzip -d tmp tmp/template.zip`
 end
 
 def clean_existing_assets
@@ -49,7 +49,7 @@ def fix_fonts
   # With    : url(asset-path("vendor/@fontsource/nunito/files/nunito-all-400-normal.woff"))
   css_paths.each do |css_path|
     css_file = File.read(css_path)
-    css_file = css_file.gsub(/url\((\.\.\/\.\.\/\.\.\/assets\/fonts\/)([^"?]+)(\?[\w]+)?\)/, 'url(asset-path("\2"))')
+    css_file = css_file.gsub(/url\((\.\/fonts\/)([^"?]+)(\?[\w]+)?\)/, 'url(asset-path("\2"))')
     File.open(css_path, "w") { |old_css_file| old_css_file.print css_file }
   end
 end
@@ -60,9 +60,13 @@ def copy_assets
   puts 'Copying new JS and CSS files...'
   base_input_path = "tmp/dist/assets"
   base_output_path = "vendor/assets"
-  `cp -R #{base_input_path}/fonts/* #{base_output_path}/fonts`
-  `cp -R #{base_input_path}/js/*.js #{base_output_path}/javascripts/mazer`
-  `cp -R #{base_input_path}/css/main/* #{base_output_path}/stylesheets/mazer`
+  `cp -R #{base_input_path}/static/fonts/nunito* #{base_output_path}/fonts`
+  `cp -R #{base_input_path}/compiled/js/*.js #{base_output_path}/javascripts/mazer`
+  `cp #{base_input_path}/static/js/initTheme.js #{base_output_path}/javascripts/mazer`
+  `cp #{base_input_path}/static/js/components/dark.js #{base_output_path}/javascripts/mazer`
+  `cp #{base_input_path}/static/js/components/sidebar.js #{base_output_path}/javascripts/mazer`
+  `cp #{base_input_path}/compiled/css/app.css #{base_output_path}/stylesheets/mazer`
+  `cp #{base_input_path}/compiled/css/app-dark.css #{base_output_path}/stylesheets/mazer`
 
   puts 'Renaming CSS files to SCSS...'
   `mv #{base_output_path}/stylesheets/mazer/app.css #{base_output_path}/stylesheets/mazer/app.scss`
