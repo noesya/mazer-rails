@@ -10,19 +10,20 @@ RuboCop::RakeTask.new
 task default: :rubocop
 
 def download_release_file(template_url)
+  zip_path = "tmp/template.zip"
   FileUtils.rm_rf('tmp')
   FileUtils.mkdir_p('tmp')
-  File.open("tmp/template.zip", "wb") do |saved_file|
+  File.open(zip_path, "wb") do |saved_file|
     URI.open(template_url, "rb") do |read_file|
       saved_file.write(read_file.read)
     end
   end
 
-  puts 'No zip to process. Exiting...' and exit unless File.exists? 'tmp/template.zip'
+  puts 'No zip to process. Exiting...' and exit unless File.exist?(zip_path)
 
-  puts 'Unzipping "tmp/template.zip"...'
+  puts 'Unzipping...'
   FileUtils.rm_rf('tmp/dist')
-  `unzip -d tmp/dist tmp/template.zip`
+  `unzip -d tmp/dist #{zip_path}`
 end
 
 def clean_existing_assets
@@ -74,7 +75,8 @@ end
 desc "Update assets"
 task 'update' do
   release_url = 'https://api.github.com/repos/zuramai/mazer/releases/latest'
-  template_url = JSON.parse(URI.open(release_url).read)['assets'][0]['browser_download_url']
+  release_data = JSON.parse(URI.open(release_url).read)
+  template_url = release_data['assets'][0]['browser_download_url']
 
   download_release_file template_url
   copy_assets
